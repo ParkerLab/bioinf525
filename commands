@@ -1,0 +1,44 @@
+#!/bin/bash
+
+set -e  # stop at any error
+
+mkdir -p ~/lab3.2
+
+cd ~/lab3.2
+
+export PATH=/class/local/bin:$PATH
+
+# Copy the initial FASTQ files
+cp /class/data/bioinf525/SRR891268*.fq.gz ~/lab3.2
+
+# Run FastQC on the file of first reads
+fastqc SRR891268.1.fq.gz
+
+# check FastQC output
+xdg-open SRR891268.1_fastqc.html
+
+# Trim adapter content from the reads
+trim_adapters SRR891268.1.fq.gz SRR891268.2.fq.gz
+
+# Check the results of trimming
+zdiff -u SRR891268.1.fq.gz SRR891268.1.trimmed.fastq.gz | less
+
+# Align the trimmed reads to the human reference genome
+bwa mem -t 4 /class/data/bioinf525/hg19 SRR891268.1.trimmed.fastq.gz SRR891268.2.trimmed.fastq.gz | samtools sort -@ 4 -O bam -T SRR891268.tmp -o SRR891268.bam -
+
+# Mark duplicate aligned reads
+java -Xmx8g -jar /class/local/bin/picard/MarkDuplicates.jar I=SRR891268.bam O=SRR891268.md.bam ASSUME_SORTED=true METRICS_FILE=SRR891268.markdup.metrics VALIDATION_STRINGENCY=LENIENT
+
+# Index the BAM file of aligned reads with duplicates marked
+samtools index SRR891268.md.bam
+
+# Filter the aligned reads to produce a file of high-quality, properly paired and mapped unique alignments to autosomal references
+export CHROMOSOMES=$(samtools view -H SRR891268.md.bam | grep '^@SQ' | cut -f 2 | grep -v -e _ -e chrM -e chrX -e chrY -e 'VN:' | sed 's/SN://' | xargs echo); samtools view -b -h -f 3 -F 4 -F 8 -F 256 -F 1024 -F 2048 -q 30 SRR891268.md.bam $CHROMOSOMES > SRR891268.ppmaq.nd.bam
+
+# Call peaks -- find regions enriched for ATAC-seq transpositions
+macs2 callpeak -t SRR891268.ppmaq.nd.bam -n SRR891268.broad -g hs -q 0.05 --nomodel --shift -100 --extsize 200 -B --broad
+
+# Create a bigWig file from the MACS2 output, so we can look at the peaks in the UCSC Genome Browser
+LC_COLLATE=C sort -k1,1 -k2,2n SRR891268.broad_treat_pileup.bdg > SRR891268.broad_treat_pileup.sorted.bdg
+
+bedGraphToBigWig SRR891268.broad_treat_pileup.sorted.bdg /class/data/bioinf525/hg19.chrom_sizes SRR891268.broad_peaks.bw
