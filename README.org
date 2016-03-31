@@ -1,21 +1,23 @@
 #+TITLE: BIOINF525 Lab 3.2
 #+AUTHOR: John Hensley <hensley@umich.edu>
 #+OPTIONS: html-postamble:nil
+#+OPTIONS: num:nil
 #+OPTIONS: toc:2
 
 * Introduction
+:PROPERTIES:
+:CUSTOM_ID: intro
+:END:
 
-We're going to work through a basic ATAC-seq data analysis pipeline:
-
-- Setting up your workspace
-- Obtaining some sequence data
-- Checking its quality
-- Cleaning it up
-- Aligning it to a reference genome
-- Calling peaks to locate the assay's activity
-- Visualizing the results
+We're going to work through a basic ATAC-seq data analysis
+pipeline. We'll check the quality of the assay data, clean it up, map
+it to a reference genome, call peaks on the aligned reads, and create
+a browser track for the UCSC Genome Browser.
 
 * Setting up your workspace
+:PROPERTIES:
+:CUSTOM_ID: setup
+:END:
 
 Open up a terminal session and create a working directory under your home directory by copying and pasting the commands after the dollar sign below:
 
@@ -27,6 +29,9 @@ And make sure we're running the right versions of the tools:
 : $ export PATH=/class/local/bin:$PATH
 
 * Retrieval of sequence data
+:PROPERTIES:
+:CUSTOM_ID: retrieval
+:END:
 
 Whether trying to replicate published results or working with your own
 data, it's essential to know how high-throughput sequence data was
@@ -50,7 +55,7 @@ Copy them from the class data directory to your working directory:
 : $ cp /class/data/bioinf525/SRR891268*.fq.gz ~/lab3.2
 
 If you're curious about how to retrieve published sequence data, read
-on, otherwise skip to [[Basic quality checking with FastQC][Basic quality checking with FastQC]].
+on, otherwise skip to [[#fastqc][Basic quality checking with FastQC]].
 
 The authors submitted their data to the NCBI Sequence Read Archive. In
 footnotes under the paper's methods section, they provide a link:
@@ -82,6 +87,9 @@ mate file to determine whether they're processing paired end
 data.
 
 * Basic quality checking with FastQC
+:PROPERTIES:
+:CUSTOM_ID: fastqc
+:END:
 
 In Lab 1-4 you ran FastQC in Galaxy to check RNA-seq data. Here you'll
 run it at the command line, and we'll check the ATAC-seq reads.
@@ -98,6 +106,9 @@ time we'll move on.
 Note the section on adapter contamination. How does this look?
 
 * Trimming adapter sequence from reads
+:PROPERTIES:
+:CUSTOM_ID: trimming
+:END:
 
 For ATAC-seq data, we trim adapter sequence using Jason Buenrostro's
 approach: try to align the paired-end reads to each other, and if that
@@ -142,6 +153,9 @@ You can exit from the less program by pressing q
 
 
 * Aligning the trimmed reads to a reference genome
+:PROPERTIES:
+:CUSTOM_ID: aligning
+:END:
 
 With the adapter cleanup complete, we can finally align the reads to a
 reference genome and see where the ATAC-seq transpositions happened.
@@ -197,6 +211,9 @@ multiple bwa commands concurrently, with a few threads each, than to
 run one at a time with a large number of threads.
 
 * Sifting the aligned reads
+:PROPERTIES:
+:CUSTOM_ID: sifting
+:END:
 
 Not all reads map well. We'll use bwa's annotations to sift out the
 good ones for subsequent analysis.
@@ -270,6 +287,9 @@ Finally, we use a basic quality filter, =-q 30=, to request
 high-quality alignments.
 
 * Calling peaks on the aligned reads
+:PROPERTIES:
+:CUSTOM_ID: peakcalling
+:END:
 
 We'll use [[https://github.com/taoliu/MACS][MACS2]] to "call peaks" in the aligned reads -- we're looking
 for regions with lots of transposition events, which indicate open
@@ -294,6 +314,9 @@ The arguments are:
   broad regions
 
 * Creating a browser track so we can look at the peaks in the UCSC Genome Browser
+:PROPERTIES:
+:CUSTOM_ID: track
+:END:
 
 We're going to use a prefab browser track that contains peaks called
 on the entire data, not the subset we're working with in the lab, but
