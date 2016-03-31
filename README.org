@@ -17,7 +17,7 @@ We're going to work through a basic ATAC-seq data analysis pipeline:
 
 * Setting up your workspace
 
-Create a working directory under your home directory:
+Open up a terminal session and create a working directory under your home directory by copying and pasting the command after the dollar sign below:
 
 : $ mkdir -p ~/lab3.2
 : $ cd ~/lab3.2
