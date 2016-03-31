@@ -321,6 +321,12 @@ Now in the search menu, look for the following SNP ID:
 
 Click on the first link to the NHGRI GWAS catalog hit. Then zoom out 100x so you can see a clear picture of the GM12878 chromatin accessibility at this SNP. Does it look like it occurs in an active regulatory element in GM12878? If you click on the SNP rsID it will take you to a page that explains the association. What is this SNP associated with? Does it make sense that it occurs in an active regulatory element for an immune cell type?
 
+
+Note that the UCSC Genome Browser bigWig track format is explained here:
+
+: https://genome.ucsc.edu/goldenpath/help/bigWig.html
+
+
 Now compare your ATAC-seq browser results to what you can find at HaploReg:
 
 : http://www.broadinstitute.org/mammals/haploreg/haploreg.php
