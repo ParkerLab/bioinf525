@@ -307,7 +307,9 @@ http://research.nhgri.nih.gov/manuscripts/Collins/islet_chromatin/
 
 At the bottom of the page, click on the track hub link:
 
-![alt text](images/NHGRI__Islet_Epigenetics.png "islet epigenetics track hub")
+![alt text](images/NHGRI__Islet_Epigenetics.png)
+
+![alt text](https://github.com/ParkerLab/bioinf525/blob/master/images/NHGRI__Islet_Epigenetics.png)
 
 https://theparkerlab.med.umich.edu/gb/tracks/bioinf525/gm12878.broad_treat_pileup.bw
 
