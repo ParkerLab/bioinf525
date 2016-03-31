@@ -17,7 +17,7 @@ We're going to work through a basic ATAC-seq data analysis pipeline:
 
 * Setting up your workspace
 
-Open up a terminal session and create a working directory under your home directory by copying and pasting the command after the dollar sign below:
+Open up a terminal session and create a working directory under your home directory by copying and pasting the commands after the dollar sign below:
 
 : $ mkdir -p ~/lab3.2
 : $ cd ~/lab3.2
@@ -39,7 +39,7 @@ Buenrostro et al.:
 
 http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3959825/
 
-We don't have time to download and analyze the entire sample, so we're
+We don't have time to download and analyze the entire sample during lab, so we're
 going to start with a subset in the following FASTQ files:
 
 - SRR891268.1.fq.gz -- contains the first reads of the pairs
@@ -76,8 +76,8 @@ so you can use fastq-dump:
 : $ fastq-dump --gzip --split-files SRR891268
 
 The =--split-files= argument is used to download into two files, one
-containing the first reads of pairs, and the other containing their
-mates. Tools used later in the pipeline often use the presence of the
+containing the first read of the pairs, and the other containing the
+second reads (mates). Tools used later in the pipeline often use the presence of the
 mate file to determine whether they're processing paired end
 data.
 
@@ -94,6 +94,8 @@ When it completes, open the HTML report in a web browser with:
 
 In real work you'd of course check both files, but in the interest of
 time we'll move on.
+
+Note the section on adapter contamination. How does this look?
 
 * Trimming adapter sequence from reads
 
@@ -133,6 +135,11 @@ that start with =+= -- ignore those.)
  GGGCCGGGCGGTCCCTTTAACGGCGCGGCCCGAGGGGCGCAGGCGGGAGG
  +SRR891268.43221 HWI-ST281:266:C1LTTACXX:1:1101:12315:8330 length=50
 #+END_EXAMPLE
+
+You can exit from the less program by pressing q
+
+: $ q
+
 
 * Aligning the trimmed reads to a reference genome
 
