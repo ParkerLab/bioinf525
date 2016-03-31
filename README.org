@@ -305,17 +305,19 @@ this is how you would create a track for the called peaks:
 First open a web browser and navigate to the following URL:
 http://research.nhgri.nih.gov/manuscripts/Collins/islet_chromatin/
 
-At the bottom of the page, click on the track hub link:
+At the bottom of the page, click on the track hub link.
 
-![Alt Text](images/NHGRI__Islet_Epigenetics.png?raw=true)
+This should open to the familiar GCK locus from lecture.
 
-![Alt Text](https://github.com/ParkerLab/bioinf525/blob/master/images/NHGRI__Islet_Epigenetics.png?raw=true)
+Now scroll down and click on "add custom tracks" and then in the "Paste URL or data" box, paste the following track:
 
-![Alt Text](https://raw.githubusercontent.com/ParkerLab/bioinf525/master/images/NHGRI__Islet_Epigenetics.png)
+: track type=bigWig name="GM12878" description="GM12878 ATAC-seq" visibility=full color=255,128,0 alwaysZero=on maxHeightPixels=50:50:50 windowingFunction=mean smoothingWindow=3 bigDataUrl=https://theparkerlab.med.umich.edu/gb/tracks/bioinf525/gm12878.broad_treat_pileup.bw
 
-https://raw.githubusercontent.com/ParkerLab/bioinf525/master/images/NHGRI__Islet_Epigenetics.png
+Then click on "submit", then click "go" to return to the GCK locus now with GM12878 ATAC-seq data. How does the GM12878 chromatin accessibility look at GCK? At the two flanking genes, POLD2 and YKT6? Can you see the promoter region?
 
-https://theparkerlab.med.umich.edu/gb/tracks/bioinf525/gm12878.broad_treat_pileup.bw
+Now in the search menu, look for the following SNP ID:
 
-http://research.nhgri.nih.gov/manuscripts/Collins/islet_chromatin/
+: rs12946510
+
+Click on the first link to the NHGRI GWAS catalog hit. Then zoom out 100x so you can see a clear picture of the GM12878 chromatin accessibility at this SNP. Does it look like it occurs in an active regulatory element in GM12878? If you click on the SNP rsID it will take you to a page that explains the association. What is this SNP associated with? Does it make sense that it occurs in an active regulatory element for an immune cell type?
 
