@@ -143,7 +143,7 @@ You can exit from the less program by pressing q
 
 * Aligning the trimmed reads to a reference genome
 
-With the cleanup complete, we can finally align the reads to a
+With the adapter cleanup complete, we can finally align the reads to a
 reference genome and see where the ATAC-seq transpositions happened.
 
 : $ bwa mem -t 4 /class/data/bioinf525/hg19 SRR891268.1.trimmed.fastq.gz SRR891268.2.trimmed.fastq.gz | samtools sort -@ 4 -O bam -T SRR891268.tmp -o SRR891268.bam -
@@ -202,8 +202,8 @@ good ones for subsequent analysis.
 
 Then we'll mark duplicate alignments. Duplication is a complicated
 assessment: duplicate reads can come from the same original DNA
-fragment, or they can be chemical or optical artifacts of the
-sequencing process. The documentation for the tool we'll use, [[https://broadinstitute.github.io/picard/command-line-overview.html][Picard,
+fragment, or they can be PCR or optical artifacts of the
+library prep or sequencing process. The documentation for the tool we'll use, [[https://broadinstitute.github.io/picard/command-line-overview.html][Picard,
 from the Broad Institute]], explains how it identifies duplicates.
 
 Here's the command:
@@ -211,8 +211,8 @@ Here's the command:
 : $ java -Xmx8g -jar /class/local/bin/picard/MarkDuplicates.jar I=SRR891268.bam O=SRR891268.md.bam ASSUME_SORTED=true METRICS_FILE=SRR891268.markdup.metrics VALIDATION_STRINGENCY=LENIENT
 
 The output will be a BAM file containing all of bwa's output, with
-duplicates marked. You could also just have Picard remove them, if you
-have no need of them later in the pipeline.
+duplicate reads marked. You could also just have Picard remove them, if you
+have no need for them later in the pipeline.
 
 Now we need to index the BAM file with duplicates marked:
 
@@ -301,3 +301,15 @@ this is how you would create a track for the called peaks:
 : $ LC_COLLATE=C sort -k1,1 -k2,2n SRR891268.broad_treat_pileup.bdg > SRR891268.broad_treat_pileup.sorted.bdg
 
 : $ bedGraphToBigWig SRR891268.broad_treat_pileup.sorted.bdg /class/data/bioinf525/hg19.chrom_sizes SRR891268.broad_peaks.bw
+
+First open a web browser and navigate to the following URL:
+http://research.nhgri.nih.gov/manuscripts/Collins/islet_chromatin/
+
+At the bottom of the page, click on the track hub link:
+
+
+
+https://theparkerlab.med.umich.edu/gb/tracks/bioinf525/gm12878.broad_treat_pileup.bw
+
+http://research.nhgri.nih.gov/manuscripts/Collins/islet_chromatin/
+
