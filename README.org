@@ -311,6 +311,10 @@ At the bottom of the page, click on the track hub link:
 
 ![Alt Text](https://github.com/ParkerLab/bioinf525/blob/master/images/NHGRI__Islet_Epigenetics.png?raw=true)
 
+![Alt Text](https://raw.githubusercontent.com/ParkerLab/bioinf525/master/images/NHGRI__Islet_Epigenetics.png)
+
+https://raw.githubusercontent.com/ParkerLab/bioinf525/master/images/NHGRI__Islet_Epigenetics.png
+
 https://theparkerlab.med.umich.edu/gb/tracks/bioinf525/gm12878.broad_treat_pileup.bw
 
 http://research.nhgri.nih.gov/manuscripts/Collins/islet_chromatin/
