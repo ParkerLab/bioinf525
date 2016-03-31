@@ -150,11 +150,12 @@ reference genome and see where the ATAC-seq transpositions happened.
 
 We specify bwa's =mem= algorithm, and give it both files of paired-end
 reads. The =mem= algorithm is the latest, and recommended for any
-reads longer than 70bp. We've found that it's essential with 150bp
-reads. If you're ever working with reads under 70bp, you'll probably
-want to use the older "backtrack" algorithm (specified with the =aln=
-parameter) for each file of reads, and add a separate =bwa sampe= step
-to combine the results for each pair.
+reads longer than 70bp. It also requires just one step, which is why
+we're using it with the 50bp reads in this lab, but if you're ever
+working with short reads, you'll probably want to at least try the
+older "backtrack" algorithm (invoked with =bwa aln= ) for each file of
+reads, add the separate =bwa sampe= step to combine the results for
+each pair, and compare to the =bwa mem= alignments.
 
 We also pipe bwa's output through =samtools sort= to create the final
 BAM file. You'll see a lot of piping in bioinformatics analyses on
@@ -322,12 +323,11 @@ Now in the search menu, look for the following SNP ID:
 Click on the first link to the NHGRI GWAS catalog hit. Then zoom out 100x so you can see a clear picture of the GM12878 chromatin accessibility at this SNP. Does it look like it occurs in an active regulatory element in GM12878? If you click on the SNP rsID it will take you to a page that explains the association. What is this SNP associated with? Does it make sense that it occurs in an active regulatory element for an immune cell type?
 
 
-Note that the UCSC Genome Browser bigWig track format is explained here: 
+Note that the UCSC Genome Browser bigWig track format is explained here:
 https://genome.ucsc.edu/goldenpath/help/bigWig.html
 
 
-Now compare your ATAC-seq browser results to what you can find at HaploReg: 
+Now compare your ATAC-seq browser results to what you can find at HaploReg:
 http://www.broadinstitute.org/mammals/haploreg/haploreg.php
 
 Enter the SNP rsID in the query box and submit. How many SNPs are closely linked to this single SNP? What are the reference and alternate alleles (bases) for this SNP? Where does this SNP occur relative to genes? Next click on our SNP rsID of interest and explore the chromatin annotations across cells/tissues.
-
